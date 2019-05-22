@@ -44,16 +44,11 @@ public final class Database  {
 
     }
 
-    public ResultSet query(String query) throws SQLException{
-        statement = connect.createStatement();
-        ResultSet res = statement.executeQuery(query);
-        return res;
+    public void query(String query){
+        System.out.println(query);
     }
 
-    public int insert(String insertQuery) throws SQLException {
-        statement = connect.createStatement();
-        int result = statement.executeUpdate(insertQuery);
-        return result;
-
+    public void insert(String insertQuery)  {
+       System.out.println(insertQuery);
     }
 }

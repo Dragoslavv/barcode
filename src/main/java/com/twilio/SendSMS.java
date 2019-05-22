@@ -5,6 +5,7 @@ import com.twilio.type.PhoneNumber;
 import com.database.Database;
 import java.security.*;
 import java.math.*;
+import java.sql.ResultSet;
 
 public class SendSMS {
 
@@ -16,15 +17,18 @@ public class SendSMS {
 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
-        if(Database.getDbCon() != null) {
+        Database cnn = Database.getDbCon();
+
+        if(cnn != null) {
 
             Message message = Message.creator(
-                    new PhoneNumber("+381631111955"),
+                    new PhoneNumber("+381695013001"),
                     new PhoneNumber("+16145240069"),
                     "Barcode id [ " + MD5("" + BODY) + " ] ").create();
 
             System.out.println(message.getSid());
             System.out.println(MD5("" + BODY));
+            cnn.insert("INSERT INTO `barcode-scanner` (`code`) VALUES ('"+ MD5("" + BODY) +"')");
         }
     }
 
