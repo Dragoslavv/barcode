@@ -9,9 +9,9 @@ import java.sql.ResultSet;
 
 public class SendSMS {
 
-    public static final String ACCOUNT_SID = "AC41b28e65ca277ed4bdeb63ad53e2f3e5";
-    public static final String AUTH_TOKEN = "6490e3a894a5b1a423ecfed57ff1a1b4";
-    public static int BODY = (int)(Math.random() * 50 + 1);
+    static final String ACCOUNT_SID = "AC41b28e65ca277ed4bdeb63ad53e2f3e5";
+    static final String AUTH_TOKEN = "6490e3a894a5b1a423ecfed57ff1a1b4";
+    static int BODY = (int)(Math.random() * 50 + 1);
 
     public static void main(String[] args) {
 
@@ -26,9 +26,7 @@ public class SendSMS {
                     new PhoneNumber("+16145240069"),
                     "Barcode id [ " + MD5("" + BODY) + " ] ").create();
 
-            System.out.println(message.getSid());
-            System.out.println(MD5("" + BODY));
-            cnn.insert("INSERT INTO `barcode-scanner` (`code`) VALUES ('"+ MD5("" + BODY) +"')");
+            cnn.insert("INSERT INTO `barcode-scanner` (`code,sid,message`) VALUES ('"+ MD5("" + BODY) +"','"+ message.getSid() +"','"+ message.getBody() +"')");
         }
     }
 
